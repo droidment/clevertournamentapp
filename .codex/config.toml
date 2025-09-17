@@ -1,0 +1,11 @@
+[cli]
+ask_for_approval = "never"
+sandbox = "danger-full-access"
+approval_policy = “on-request”
+model_reasoning_effort = “high”
+model_reasoning_summary = “detailed”
+
+[mcp_servers.supabase_sql]
+command = "node"
+args = [".codex/tools/supabase-sql/server.mjs"]
+env = { SUPABASE_PROJECT = "qqmsiddtjjmyqfndqywe", SUPABASE_PAT = "sbp_93201549fa1f8b8fc8efd9b7fc75961848c40dfa" }
