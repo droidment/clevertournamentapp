@@ -1,16 +1,37 @@
-# clevertournamentapp
+# CleverTournamentApp
 
-A new Flutter project.
+Flutter + Supabase app for managing tournaments, teams, and schedules across web and mobile targets.
 
-## Getting Started
+## Local Development
 
-This project is a starting point for a Flutter application.
+- Install Flutter (stable channel) and run `flutter pub get`.
+- Provide Supabase environment values using `--dart-define` flags or override defaults in `lib/src/core/config/env.dart`.
+- Launch the app with `flutter run` (mobile/desktop) or `flutter run -d chrome` for web.
+- Generate Freezed/JSON outputs when models change: `flutter pub run build_runner build --delete-conflicting-outputs`.
 
-A few resources to get you started if this is your first Flutter project:
+## Testing
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+flutter test
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Widget tests expect a mocked Supabase client; add an initialization guard before enabling CI runs.
+
+## Deployment
+
+### Firebase Hosting (Flutter web)
+
+Pushing to the `main` branch automatically builds the Flutter web bundle and deploys it to Firebase Hosting via `.github/workflows/firebase-hosting.yml`.
+
+#### Required GitHub secrets
+
+| Secret | Purpose |
+| --- | --- |
+| `FIREBASE_SERVICE_ACCOUNT` | JSON for a Firebase service account with `Firebase Hosting Admin` and `Cloud Build Service Account` roles. |
+| `FIREBASE_PROJECT_ID` | Firebase project ID that owns the hosting site. |
+
+The workflow runs `flutter build web --release` and publishes the contents of `build/web`. To trigger the workflow manually, use *Run workflow* from the Actions tab.
+
+---
+
+For database schema, UI plans, and future roadmap, see the docs under `md/`.
