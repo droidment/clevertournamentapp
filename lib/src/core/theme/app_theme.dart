@@ -1,20 +1,17 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AppTheme {
   const AppTheme._();
-
   static const Color _deepTeal = Color(0xFF205781);
   static const Color _aquaTeal = Color(0xFF4F959D);
   static const Color _mistGreen = Color(0xFF98D2C0);
   static const Color _softSand = Color(0xFFF6F8D5);
   static const Color _ink = Color(0xFF0B1F2A);
-
   static ThemeData get light {
     final baseScheme = ColorScheme.fromSeed(
       seedColor: _deepTeal,
       brightness: Brightness.light,
     );
-
     final colorScheme = baseScheme.copyWith(
       primary: _deepTeal,
       onPrimary: Colors.white,
@@ -26,11 +23,12 @@ class AppTheme {
       surfaceTint: _deepTeal,
       onSurface: _ink,
     );
-
-    final textTheme = ThemeData.light().textTheme.apply(
+    final textTheme = ThemeData.light().textTheme
+        .apply(
           bodyColor: colorScheme.onSurface,
           displayColor: colorScheme.onSurface,
-        ).copyWith(
+        )
+        .copyWith(
           headlineMedium: const TextStyle(
             fontWeight: FontWeight.w700,
             letterSpacing: -0.5,
@@ -44,7 +42,6 @@ class AppTheme {
             letterSpacing: 0.3,
           ),
         );
-
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
@@ -64,7 +61,9 @@ class AppTheme {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(18)),
           ),
-          textStyle: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+          textStyle: textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -76,12 +75,10 @@ class AppTheme {
           ),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Colors.white,
         surfaceTintColor: colorScheme.primary.withValues(alpha: 0.1),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 2,
         margin: const EdgeInsets.all(16),
       ),
@@ -90,9 +87,7 @@ class AppTheme {
         selectedColor: colorScheme.primary.withValues(alpha: 0.12),
         labelStyle: textTheme.bodyMedium,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       navigationRailTheme: NavigationRailThemeData(
         backgroundColor: colorScheme.surface,
@@ -113,7 +108,9 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
-        labelStyle: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+        labelStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSurface,
+        ),
       ),
     );
   }
