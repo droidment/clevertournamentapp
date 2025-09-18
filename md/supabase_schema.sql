@@ -100,8 +100,9 @@ CREATE TABLE public.teams (
     tournament_id UUID REFERENCES public.tournaments(id) ON DELETE CASCADE NOT NULL,
     name TEXT NOT NULL,
     captain_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
-    contact_email TEXT,
-    contact_phone TEXT,
+    city TEXT NOT NULL,
+    state TEXT NOT NULL,
+    jersey_color TEXT,
     seed INTEGER,
     pool_id UUID, -- Will reference pools table
     registration_status TEXT DEFAULT 'pending' CHECK (registration_status IN ('pending', 'approved', 'rejected')),
@@ -386,5 +387,6 @@ CREATE INDEX idx_team_standings_ranking ON public.team_standings(ranking);
 CREATE INDEX idx_notifications_tournament_id ON public.notifications(tournament_id);
 CREATE INDEX idx_notifications_created_at ON public.notifications(created_at);
 CREATE INDEX idx_user_notification_status_user_id ON public.user_notification_status(user_id);
+
 
 

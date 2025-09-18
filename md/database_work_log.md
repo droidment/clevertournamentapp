@@ -51,3 +51,4 @@
 - Scripts: `scripts/supabase_sql.ps1` and `.codex/tools/supabase-sql/` provide CLI/MCP access to the Supabase SQL API for quick migration tests.
 - Keep Supabase project reference and service keys updated in `.codex/config.toml` when automating SQL runs.
 - When shipping schema changes, drop new SQL into `supabase/migrations/` and record the intent in this log for future context.
+- Updated teams schema to store city, state, and jersey_color instead of contact info (2025-09-18).
