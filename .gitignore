@@ -1,0 +1,22 @@
+# Ignore local MCP dependencies
+.codex/tools/supabase-sql/node_modules/
+
+# Flutter & Dart build outputs
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# IDE settings
+.idea/
+.vscode/
+
+# Generated metadata
+.metadata
+
+# Xcode artifacts
+DerivedData/
+*.xcworkspace
+*.xcuserstate
+*.iml
