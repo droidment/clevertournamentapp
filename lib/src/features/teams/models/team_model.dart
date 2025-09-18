@@ -21,8 +21,9 @@ class TeamModel with _$TeamModel {
     required String tournamentId,
     required String name,
     String? captainId,
-    String? contactEmail,
-    String? contactPhone,
+    String? city,
+    String? state,
+    String? jerseyColor,
     int? seed,
     String? poolId,
     @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)

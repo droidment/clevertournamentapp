@@ -14,23 +14,27 @@ class TeamDraft {
     required this.tournamentId,
     required this.name,
     this.captainId,
-    this.contactEmail,
-    this.contactPhone,
+    required this.city,
+    required this.state,
+    this.jerseyColor,
   });
 
   final String tournamentId;
   final String name;
   final String? captainId;
-  final String? contactEmail;
-  final String? contactPhone;
+  final String city;
+  final String state;
+  final String? jerseyColor;
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'tournament_id': tournamentId,
       'name': name,
       if (captainId != null) 'captain_id': captainId,
-      if (contactEmail != null) 'contact_email': contactEmail,
-      if (contactPhone != null) 'contact_phone': contactPhone,
+      'city': city,
+      'state': state,
+      if (jerseyColor != null && jerseyColor!.isNotEmpty)
+        'jersey_color': jerseyColor,
     };
   }
 }

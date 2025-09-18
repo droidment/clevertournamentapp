@@ -12,8 +12,9 @@ _$TeamModelImpl _$$TeamModelImplFromJson(Map<String, dynamic> json) =>
       tournamentId: json['tournament_id'] as String,
       name: json['name'] as String,
       captainId: json['captain_id'] as String?,
-      contactEmail: json['contact_email'] as String?,
-      contactPhone: json['contact_phone'] as String?,
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+      jerseyColor: json['jersey_color'] as String?,
       seed: (json['seed'] as num?)?.toInt(),
       poolId: json['pool_id'] as String?,
       registrationStatus: $enumDecodeNullable(
@@ -37,8 +38,9 @@ Map<String, dynamic> _$$TeamModelImplToJson(_$TeamModelImpl instance) =>
       'tournament_id': instance.tournamentId,
       'name': instance.name,
       'captain_id': instance.captainId,
-      'contact_email': instance.contactEmail,
-      'contact_phone': instance.contactPhone,
+      'city': instance.city,
+      'state': instance.state,
+      'jersey_color': instance.jerseyColor,
       'seed': instance.seed,
       'pool_id': instance.poolId,
       'registration_status':

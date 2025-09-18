@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../auth/controllers/auth_session_providers.dart';
 import '../../auth/models/app_user.dart';
 import '../controllers/tournament_teams_controller.dart';
@@ -23,8 +24,10 @@ class _TeamRegistrationDialog extends ConsumerStatefulWidget {
     required this.ref,
     required this.tournamentId,
   });
+
   final WidgetRef ref;
   final String tournamentId;
+
   @override
   ConsumerState<_TeamRegistrationDialog> createState() =>
       _TeamRegistrationDialogState();
@@ -34,25 +37,28 @@ class _TeamRegistrationDialogState
     extends ConsumerState<_TeamRegistrationDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late final TextEditingController _teamNameController;
-  late final TextEditingController _contactEmailController;
-  late final TextEditingController _contactPhoneController;
+  late final TextEditingController _cityController;
+  late final TextEditingController _stateController;
+  late final TextEditingController _jerseyColorController;
+
   bool _isSubmitting = false;
   String? _submissionError;
+
   @override
   void initState() {
     super.initState();
-    final authState = widget.ref.read(authSessionProvider);
-    final user = authState.valueOrNull;
     _teamNameController = TextEditingController();
-    _contactEmailController = TextEditingController(text: user?.email ?? '');
-    _contactPhoneController = TextEditingController();
+    _cityController = TextEditingController();
+    _stateController = TextEditingController();
+    _jerseyColorController = TextEditingController();
   }
 
   @override
   void dispose() {
     _teamNameController.dispose();
-    _contactEmailController.dispose();
-    _contactPhoneController.dispose();
+    _cityController.dispose();
+    _stateController.dispose();
+    _jerseyColorController.dispose();
     super.dispose();
   }
 
@@ -62,6 +68,7 @@ class _TeamRegistrationDialogState
     final colors = theme.colorScheme;
     final authState = ref.watch(authSessionProvider);
     final user = authState.valueOrNull;
+
     return AlertDialog(
       title: const Text('Register a team'),
       content: ConstrainedBox(
@@ -71,6 +78,23 @@ class _TeamRegistrationDialogState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (_submissionError != null) ...<Widget>[
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: colors.errorContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    _submissionError!,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colors.onErrorContainer,
+                    ),
+                  ),
+                ),
+              ],
               if (user != null) ...<Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -98,23 +122,6 @@ class _TeamRegistrationDialogState
                   ),
                 ),
               ],
-              if (_submissionError != null) ...<Widget>[
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: colors.errorContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    _submissionError!,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: colors.onErrorContainer,
-                    ),
-                  ),
-                ),
-              ],
               Form(
                 key: _formKey,
                 child: Column(
@@ -134,21 +141,39 @@ class _TeamRegistrationDialogState
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      controller: _contactEmailController,
+                      controller: _cityController,
                       decoration: const InputDecoration(
-                        labelText: 'Contact email',
-                        hintText: 'captain@email.com',
+                        labelText: 'City',
+                        hintText: 'Austin',
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'City is required.';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      controller: _contactPhoneController,
+                      controller: _stateController,
                       decoration: const InputDecoration(
-                        labelText: 'Contact phone',
-                        hintText: '(555) 123-4567',
+                        labelText: 'State / Province',
+                        hintText: 'Texas',
                       ),
-                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'State or province is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _jerseyColorController,
+                      decoration: const InputDecoration(
+                        labelText: 'Jersey color (optional)',
+                        hintText: 'Navy blue',
+                      ),
                     ),
                   ],
                 ),
@@ -181,10 +206,12 @@ class _TeamRegistrationDialogState
     if (form == null || !form.validate()) {
       return;
     }
+
     setState(() {
       _isSubmitting = true;
       _submissionError = null;
     });
+
     try {
       final notifier = ref.read(
         tournamentTeamsControllerProvider(widget.tournamentId).notifier,
@@ -194,16 +221,15 @@ class _TeamRegistrationDialogState
           tournamentId: widget.tournamentId,
           name: _teamNameController.text.trim(),
           captainId: user?.id,
-          contactEmail:
-              _contactEmailController.text.trim().isEmpty
+          city: _cityController.text.trim(),
+          state: _stateController.text.trim(),
+          jerseyColor:
+              _jerseyColorController.text.trim().isEmpty
                   ? null
-                  : _contactEmailController.text.trim(),
-          contactPhone:
-              _contactPhoneController.text.trim().isEmpty
-                  ? null
-                  : _contactPhoneController.text.trim(),
+                  : _jerseyColorController.text.trim(),
         ),
       );
+
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(

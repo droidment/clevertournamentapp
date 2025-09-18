@@ -25,8 +25,9 @@ mixin _$TeamModel {
   String get tournamentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get captainId => throw _privateConstructorUsedError;
-  String? get contactEmail => throw _privateConstructorUsedError;
-  String? get contactPhone => throw _privateConstructorUsedError;
+  String? get city => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+  String? get jerseyColor => throw _privateConstructorUsedError;
   int? get seed => throw _privateConstructorUsedError;
   String? get poolId => throw _privateConstructorUsedError;
   @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)
@@ -55,8 +56,9 @@ abstract class $TeamModelCopyWith<$Res> {
     String tournamentId,
     String name,
     String? captainId,
-    String? contactEmail,
-    String? contactPhone,
+    String? city,
+    String? state,
+    String? jerseyColor,
     int? seed,
     String? poolId,
     @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)
@@ -85,8 +87,9 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
     Object? tournamentId = null,
     Object? name = null,
     Object? captainId = freezed,
-    Object? contactEmail = freezed,
-    Object? contactPhone = freezed,
+    Object? city = freezed,
+    Object? state = freezed,
+    Object? jerseyColor = freezed,
     Object? seed = freezed,
     Object? poolId = freezed,
     Object? registrationStatus = freezed,
@@ -115,15 +118,20 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
                     ? _value.captainId
                     : captainId // ignore: cast_nullable_to_non_nullable
                         as String?,
-            contactEmail:
-                freezed == contactEmail
-                    ? _value.contactEmail
-                    : contactEmail // ignore: cast_nullable_to_non_nullable
+            city:
+                freezed == city
+                    ? _value.city
+                    : city // ignore: cast_nullable_to_non_nullable
                         as String?,
-            contactPhone:
-                freezed == contactPhone
-                    ? _value.contactPhone
-                    : contactPhone // ignore: cast_nullable_to_non_nullable
+            state:
+                freezed == state
+                    ? _value.state
+                    : state // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            jerseyColor:
+                freezed == jerseyColor
+                    ? _value.jerseyColor
+                    : jerseyColor // ignore: cast_nullable_to_non_nullable
                         as String?,
             seed:
                 freezed == seed
@@ -170,8 +178,9 @@ abstract class _$$TeamModelImplCopyWith<$Res>
     String tournamentId,
     String name,
     String? captainId,
-    String? contactEmail,
-    String? contactPhone,
+    String? city,
+    String? state,
+    String? jerseyColor,
     int? seed,
     String? poolId,
     @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)
@@ -199,8 +208,9 @@ class __$$TeamModelImplCopyWithImpl<$Res>
     Object? tournamentId = null,
     Object? name = null,
     Object? captainId = freezed,
-    Object? contactEmail = freezed,
-    Object? contactPhone = freezed,
+    Object? city = freezed,
+    Object? state = freezed,
+    Object? jerseyColor = freezed,
     Object? seed = freezed,
     Object? poolId = freezed,
     Object? registrationStatus = freezed,
@@ -229,15 +239,20 @@ class __$$TeamModelImplCopyWithImpl<$Res>
                 ? _value.captainId
                 : captainId // ignore: cast_nullable_to_non_nullable
                     as String?,
-        contactEmail:
-            freezed == contactEmail
-                ? _value.contactEmail
-                : contactEmail // ignore: cast_nullable_to_non_nullable
+        city:
+            freezed == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
                     as String?,
-        contactPhone:
-            freezed == contactPhone
-                ? _value.contactPhone
-                : contactPhone // ignore: cast_nullable_to_non_nullable
+        state:
+            freezed == state
+                ? _value.state
+                : state // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        jerseyColor:
+            freezed == jerseyColor
+                ? _value.jerseyColor
+                : jerseyColor // ignore: cast_nullable_to_non_nullable
                     as String?,
         seed:
             freezed == seed
@@ -278,8 +293,9 @@ class _$TeamModelImpl implements _TeamModel {
     required this.tournamentId,
     required this.name,
     this.captainId,
-    this.contactEmail,
-    this.contactPhone,
+    this.city,
+    this.state,
+    this.jerseyColor,
     this.seed,
     this.poolId,
     @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)
@@ -300,9 +316,11 @@ class _$TeamModelImpl implements _TeamModel {
   @override
   final String? captainId;
   @override
-  final String? contactEmail;
+  final String? city;
   @override
-  final String? contactPhone;
+  final String? state;
+  @override
+  final String? jerseyColor;
   @override
   final int? seed;
   @override
@@ -317,7 +335,7 @@ class _$TeamModelImpl implements _TeamModel {
 
   @override
   String toString() {
-    return 'TeamModel(id: $id, tournamentId: $tournamentId, name: $name, captainId: $captainId, contactEmail: $contactEmail, contactPhone: $contactPhone, seed: $seed, poolId: $poolId, registrationStatus: $registrationStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'TeamModel(id: $id, tournamentId: $tournamentId, name: $name, captainId: $captainId, city: $city, state: $state, jerseyColor: $jerseyColor, seed: $seed, poolId: $poolId, registrationStatus: $registrationStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -331,10 +349,10 @@ class _$TeamModelImpl implements _TeamModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.captainId, captainId) ||
                 other.captainId == captainId) &&
-            (identical(other.contactEmail, contactEmail) ||
-                other.contactEmail == contactEmail) &&
-            (identical(other.contactPhone, contactPhone) ||
-                other.contactPhone == contactPhone) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.jerseyColor, jerseyColor) ||
+                other.jerseyColor == jerseyColor) &&
             (identical(other.seed, seed) || other.seed == seed) &&
             (identical(other.poolId, poolId) || other.poolId == poolId) &&
             (identical(other.registrationStatus, registrationStatus) ||
@@ -353,8 +371,9 @@ class _$TeamModelImpl implements _TeamModel {
     tournamentId,
     name,
     captainId,
-    contactEmail,
-    contactPhone,
+    city,
+    state,
+    jerseyColor,
     seed,
     poolId,
     registrationStatus,
@@ -382,8 +401,9 @@ abstract class _TeamModel implements TeamModel {
     required final String tournamentId,
     required final String name,
     final String? captainId,
-    final String? contactEmail,
-    final String? contactPhone,
+    final String? city,
+    final String? state,
+    final String? jerseyColor,
     final int? seed,
     final String? poolId,
     @JsonKey(unknownEnumValue: TeamRegistrationStatus.pending)
@@ -404,9 +424,11 @@ abstract class _TeamModel implements TeamModel {
   @override
   String? get captainId;
   @override
-  String? get contactEmail;
+  String? get city;
   @override
-  String? get contactPhone;
+  String? get state;
+  @override
+  String? get jerseyColor;
   @override
   int? get seed;
   @override

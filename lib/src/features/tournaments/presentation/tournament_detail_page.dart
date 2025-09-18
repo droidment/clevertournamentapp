@@ -281,17 +281,21 @@ class _TeamCard extends StatelessWidget {
                     children: <Widget>[
                       Text(team.name, style: theme.textTheme.titleLarge),
                       const SizedBox(height: 6),
-                      if (team.contactEmail != null &&
-                          team.contactEmail!.isNotEmpty)
+                      if (team.city != null || team.state != null)
                         Text(
-                          team.contactEmail!,
+                          [
+                            if (team.city?.isNotEmpty ?? false) team.city!,
+                            if (team.state?.isNotEmpty ?? false) team.state!,
+                          ].join(', '),
                           style: theme.textTheme.bodyMedium,
                         ),
-                      if (team.contactPhone != null &&
-                          team.contactPhone!.isNotEmpty)
+                      if (team.jerseyColor != null &&
+                          team.jerseyColor!.isNotEmpty)
                         Text(
-                          team.contactPhone!,
-                          style: theme.textTheme.bodyMedium,
+                          'Jersey color: \${team.jerseyColor}',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: colors.primary,
+                          ),
                         ),
                     ],
                   ),
