@@ -1,4 +1,6 @@
+import 'package:clevertournamentapp/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StandingsPage extends StatelessWidget {
   const StandingsPage({super.key});
@@ -8,7 +10,19 @@ class StandingsPage extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Standings')),
+      appBar: AppBar(
+        title: const Text('Standings'),
+        actions: <Widget>[
+          IconButton(
+            tooltip: 'Profile',
+            onPressed: () => context.goNamed(AppRoute.profile.name),
+            icon: const CircleAvatar(
+              radius: 16,
+              child: Icon(Icons.person_outline, size: 18),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -27,7 +41,7 @@ class StandingsPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Soon you\'ll track pool results, tie-breakers, and leaderboards automatically as scores stream in.',
+                "Soon you'll track pool results, tie-breakers, and leaderboards automatically as scores stream in.",
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium,
               ),

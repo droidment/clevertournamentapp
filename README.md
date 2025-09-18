@@ -8,6 +8,7 @@ Flutter + Supabase app for managing tournaments, teams, and schedules across web
 - Provide Supabase environment values using `--dart-define` flags or override defaults in `lib/src/core/config/env.dart`.
 - Launch the app with `flutter run` (mobile/desktop) or `flutter run -d chrome` for web.
 - Generate Freezed/JSON outputs when models change: `flutter pub run build_runner build --delete-conflicting-outputs`.
+- Update your profile (full name, phone) via the profile icon in the top-right before registering teams so organizers can reach you.
 
 ### Google Sign-In setup
 

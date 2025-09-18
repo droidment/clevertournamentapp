@@ -25,8 +25,8 @@ mixin _$TeamModel {
   String get tournamentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get captainId => throw _privateConstructorUsedError;
-  String? get city => throw _privateConstructorUsedError;
-  String? get state => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get state => throw _privateConstructorUsedError;
   String? get jerseyColor => throw _privateConstructorUsedError;
   int? get seed => throw _privateConstructorUsedError;
   String? get poolId => throw _privateConstructorUsedError;
@@ -56,8 +56,8 @@ abstract class $TeamModelCopyWith<$Res> {
     String tournamentId,
     String name,
     String? captainId,
-    String? city,
-    String? state,
+    String city,
+    String state,
     String? jerseyColor,
     int? seed,
     String? poolId,
@@ -87,8 +87,8 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
     Object? tournamentId = null,
     Object? name = null,
     Object? captainId = freezed,
-    Object? city = freezed,
-    Object? state = freezed,
+    Object? city = null,
+    Object? state = null,
     Object? jerseyColor = freezed,
     Object? seed = freezed,
     Object? poolId = freezed,
@@ -119,15 +119,15 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
                     : captainId // ignore: cast_nullable_to_non_nullable
                         as String?,
             city:
-                freezed == city
+                null == city
                     ? _value.city
                     : city // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as String,
             state:
-                freezed == state
+                null == state
                     ? _value.state
                     : state // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as String,
             jerseyColor:
                 freezed == jerseyColor
                     ? _value.jerseyColor
@@ -178,8 +178,8 @@ abstract class _$$TeamModelImplCopyWith<$Res>
     String tournamentId,
     String name,
     String? captainId,
-    String? city,
-    String? state,
+    String city,
+    String state,
     String? jerseyColor,
     int? seed,
     String? poolId,
@@ -208,8 +208,8 @@ class __$$TeamModelImplCopyWithImpl<$Res>
     Object? tournamentId = null,
     Object? name = null,
     Object? captainId = freezed,
-    Object? city = freezed,
-    Object? state = freezed,
+    Object? city = null,
+    Object? state = null,
     Object? jerseyColor = freezed,
     Object? seed = freezed,
     Object? poolId = freezed,
@@ -240,15 +240,15 @@ class __$$TeamModelImplCopyWithImpl<$Res>
                 : captainId // ignore: cast_nullable_to_non_nullable
                     as String?,
         city:
-            freezed == city
+            null == city
                 ? _value.city
                 : city // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as String,
         state:
-            freezed == state
+            null == state
                 ? _value.state
                 : state // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as String,
         jerseyColor:
             freezed == jerseyColor
                 ? _value.jerseyColor
@@ -293,8 +293,8 @@ class _$TeamModelImpl implements _TeamModel {
     required this.tournamentId,
     required this.name,
     this.captainId,
-    this.city,
-    this.state,
+    required this.city,
+    required this.state,
     this.jerseyColor,
     this.seed,
     this.poolId,
@@ -316,9 +316,9 @@ class _$TeamModelImpl implements _TeamModel {
   @override
   final String? captainId;
   @override
-  final String? city;
+  final String city;
   @override
-  final String? state;
+  final String state;
   @override
   final String? jerseyColor;
   @override
@@ -401,8 +401,8 @@ abstract class _TeamModel implements TeamModel {
     required final String tournamentId,
     required final String name,
     final String? captainId,
-    final String? city,
-    final String? state,
+    required final String city,
+    required final String state,
     final String? jerseyColor,
     final int? seed,
     final String? poolId,
@@ -424,9 +424,9 @@ abstract class _TeamModel implements TeamModel {
   @override
   String? get captainId;
   @override
-  String? get city;
+  String get city;
   @override
-  String? get state;
+  String get state;
   @override
   String? get jerseyColor;
   @override

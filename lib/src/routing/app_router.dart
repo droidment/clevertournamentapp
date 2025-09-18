@@ -7,6 +7,7 @@ import '../features/auth/controllers/auth_session_providers.dart';
 import '../features/auth/models/app_user.dart';
 import '../features/auth/presentation/login_page.dart';
 import '../features/auth/presentation/register_page.dart';
+import '../features/profile/presentation/profile_page.dart';
 import '../features/tournaments/presentation/tournament_detail_page.dart';
 
 enum AppRoute {
@@ -16,6 +17,7 @@ enum AppRoute {
   tournaments,
   schedule,
   standings,
+  profile,
   tournamentDetail,
 }
 
@@ -27,6 +29,7 @@ extension AppRoutePath on AppRoute {
     AppRoute.tournaments => '/tournaments',
     AppRoute.schedule => '/schedule',
     AppRoute.standings => '/standings',
+    AppRoute.profile => '/profile',
     AppRoute.tournamentDetail => '/tournaments/:id',
   };
 
@@ -37,6 +40,7 @@ extension AppRoutePath on AppRoute {
     AppRoute.tournaments => 'tournaments',
     AppRoute.schedule => 'schedule',
     AppRoute.standings => 'standings',
+    AppRoute.profile => 'profile',
     AppRoute.tournamentDetail => 'tournamentDetail',
   };
 }
@@ -107,6 +111,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return const NoTransitionPage(
             child: HomeShellPage(initialTab: HomeTab.standings),
           );
+        },
+      ),
+      GoRoute(
+        path: AppRoute.profile.path,
+        name: AppRoute.profile.name,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const NoTransitionPage(child: ProfilePage());
         },
       ),
     ],

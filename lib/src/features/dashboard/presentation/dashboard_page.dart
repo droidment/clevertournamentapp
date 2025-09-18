@@ -13,7 +13,20 @@ class DashboardPage extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('CleverTournament'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('CleverTournament'),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            tooltip: 'Profile',
+            onPressed: () => context.goNamed(AppRoute.profile.name),
+            icon: const CircleAvatar(
+              radius: 16,
+              child: Icon(Icons.person_outline, size: 18),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 720),

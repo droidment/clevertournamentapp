@@ -14,6 +14,8 @@ class TeamDraft {
     required this.tournamentId,
     required this.name,
     this.captainId,
+    this.captainEmail,
+    this.captainName,
     required this.city,
     required this.state,
     this.jerseyColor,
@@ -22,6 +24,8 @@ class TeamDraft {
   final String tournamentId;
   final String name;
   final String? captainId;
+  final String? captainEmail;
+  final String? captainName;
   final String city;
   final String state;
   final String? jerseyColor;
@@ -59,9 +63,31 @@ class TeamRepository {
   }
 
   Future<TeamModel> createTeam(TeamDraft draft) async {
+    await _ensureCaptainProfile(draft);
+
     final Map<String, dynamic> response =
         await _client.from('teams').insert(draft.toJson()).select().single();
 
     return TeamModel.fromJson(response);
+  }
+
+  Future<void> _ensureCaptainProfile(TeamDraft draft) async {
+    if (draft.captainId == null) {
+      return;
+    }
+
+    final payload = <String, dynamic>{
+      'id': draft.captainId,
+      'updated_at': DateTime.now().toIso8601String(),
+    };
+
+    if (draft.captainEmail != null && draft.captainEmail!.isNotEmpty) {
+      payload['email'] = draft.captainEmail;
+    }
+    if (draft.captainName != null && draft.captainName!.isNotEmpty) {
+      payload['full_name'] = draft.captainName;
+    }
+
+    await _client.from('profiles').upsert(payload, onConflict: 'id');
   }
 }

@@ -34,6 +34,14 @@ class TournamentsPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Tournaments'),
         actions: <Widget>[
+          IconButton(
+            tooltip: 'Profile',
+            onPressed: () => context.goNamed(AppRoute.profile.name),
+            icon: const CircleAvatar(
+              radius: 16,
+              child: Icon(Icons.person_outline, size: 18),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: FilledButton.icon(

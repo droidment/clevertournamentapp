@@ -221,6 +221,8 @@ class _TeamRegistrationDialogState
           tournamentId: widget.tournamentId,
           name: _teamNameController.text.trim(),
           captainId: user?.id,
+          captainEmail: user?.email,
+          captainName: user?.fullName,
           city: _cityController.text.trim(),
           state: _stateController.text.trim(),
           jerseyColor:

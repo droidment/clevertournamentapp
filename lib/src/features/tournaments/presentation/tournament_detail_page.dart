@@ -1,5 +1,9 @@
+import 'package:clevertournamentapp/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
+import '../../profile/controllers/profile_controller.dart';
+import '../../profile/models/profile_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../teams/controllers/tournament_teams_controller.dart';
 import '../../teams/models/team_model.dart';
@@ -168,6 +172,50 @@ class _TeamsTab extends ConsumerWidget {
       tournamentTeamsControllerProvider(tournament.id).notifier,
     );
     Future<void> handleRegisterTeam() async {
+      ProfileModel? profile;
+      try {
+        profile = await ref.read(currentProfileProvider.future);
+      } catch (_) {
+        profile = null;
+      }
+
+      if (!context.mounted) {
+        return;
+      }
+
+      final bool isProfileComplete =
+          profile != null && (profile.fullName?.trim().isNotEmpty ?? false);
+
+      if (!isProfileComplete) {
+        final bool goToProfile =
+            await showDialog<bool>(
+              context: context,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  title: const Text('Complete your profile'),
+                  content: const Text(
+                    'Add your name and contact info before registering teams so organizers can reach you.',
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(dialogContext).pop(false),
+                      child: const Text('Not now'),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.of(dialogContext).pop(true),
+                      child: const Text('Go to profile'),
+                    ),
+                  ],
+                );
+              },
+            ) ??
+            false;
+        if (goToProfile && context.mounted) {
+          context.goNamed(AppRoute.profile.name);
+        }
+        return;
+      }
+
       await showTeamRegistrationDialog(context, ref, tournament.id);
     }
 
