@@ -1,0 +1,63 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../core/supabase/supabase_service.dart';
+import '../models/team_model.dart';
+
+final teamRepositoryProvider = Provider<TeamRepository>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  return TeamRepository(client);
+});
+
+class TeamDraft {
+  const TeamDraft({
+    required this.tournamentId,
+    required this.name,
+    this.captainId,
+    this.contactEmail,
+    this.contactPhone,
+  });
+
+  final String tournamentId;
+  final String name;
+  final String? captainId;
+  final String? contactEmail;
+  final String? contactPhone;
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'tournament_id': tournamentId,
+      'name': name,
+      if (captainId != null) 'captain_id': captainId,
+      if (contactEmail != null) 'contact_email': contactEmail,
+      if (contactPhone != null) 'contact_phone': contactPhone,
+    };
+  }
+}
+
+class TeamRepository {
+  TeamRepository(this._client);
+
+  final SupabaseClient _client;
+
+  Future<List<TeamModel>> fetchTeamsForTournament(String tournamentId) async {
+    final dynamic response = await _client
+        .from('teams')
+        .select()
+        .eq('tournament_id', tournamentId)
+        .order('created_at');
+
+    final rows = response as List<dynamic>;
+    return rows
+        .cast<Map<String, dynamic>>()
+        .map(TeamModel.fromJson)
+        .toList(growable: false);
+  }
+
+  Future<TeamModel> createTeam(TeamDraft draft) async {
+    final Map<String, dynamic> response =
+        await _client.from('teams').insert(draft.toJson()).select().single();
+
+    return TeamModel.fromJson(response);
+  }
+}
