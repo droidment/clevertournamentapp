@@ -26,6 +26,18 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
     }
   }
 
+  Future<void> signInWithGoogle() async {
+    state = const AsyncLoading();
+    try {
+      await _repository.signInWithGoogle();
+      state = const AsyncData(null);
+    } on AuthException catch (error, stackTrace) {
+      state = AsyncError<Object>(error, stackTrace);
+    } catch (error, stackTrace) {
+      state = AsyncError<Object>(error, stackTrace);
+    }
+  }
+
   Future<void> signUp({required String email, required String password}) async {
     state = const AsyncLoading();
     try {

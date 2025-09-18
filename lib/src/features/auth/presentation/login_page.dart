@@ -142,6 +142,26 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   : const Text('Sign in'),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: const <Widget>[
+                          Expanded(child: Divider()),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text('or'),
+                          ),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: isLoading ? null : _onGoogleSignIn,
+                          icon: const Icon(Icons.g_translate),
+                          label: const Text('Continue with Google'),
+                        ),
+                      ),
                       const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -181,6 +201,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref
         .read(authControllerProvider.notifier)
         .signIn(email: email, password: password);
+  }
+
+  Future<void> _onGoogleSignIn() async {
+    FocusScope.of(context).unfocus();
+    await ref.read(authControllerProvider.notifier).signInWithGoogle();
   }
 
   void _showSnackBar(String message, {bool isError = false}) {

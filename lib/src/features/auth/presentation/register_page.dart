@@ -171,6 +171,26 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                   : const Text('Create account'),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: const <Widget>[
+                          Expanded(child: Divider()),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text('or'),
+                          ),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: isLoading ? null : _onGoogleSignIn,
+                          icon: const Icon(Icons.g_translate),
+                          label: const Text('Sign up with Google'),
+                        ),
+                      ),
                       const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -212,6 +232,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     ref
         .read(authControllerProvider.notifier)
         .signUp(email: email, password: password);
+  }
+
+  Future<void> _onGoogleSignIn() async {
+    FocusScope.of(context).unfocus();
+    _submitted = false;
+    await ref.read(authControllerProvider.notifier).signInWithGoogle();
   }
 
   void _showSnackBar(String message, {bool isError = false}) {

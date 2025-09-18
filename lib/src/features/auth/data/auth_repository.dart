@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/config/env.dart';
 import '../../../core/supabase/supabase_service.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
@@ -27,6 +29,17 @@ class AuthRepository {
     required String password,
   }) async {
     return _client.auth.signUp(email: email, password: password);
+  }
+
+  Future<void> signInWithGoogle() async {
+    await _client.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: EnvConfig.redirectUrlOrNull,
+      queryParams: const <String, String>{
+        'access_type': 'offline',
+        'prompt': 'consent',
+      },
+    );
   }
 
   Future<void> signOut() async {
